@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
+
 import Overview from "./pages/Overview";
-import Progress from "./pages/Progress";
-import Zero2050 from "./pages/Zero2050";
-import NetZero from "./pages/NetZero";
 import Inventory from "./pages/Inventory";
+import Scope3 from "./pages/Scope3";
 import Commitments from "./pages/Commitments";
 import DataMethodology from "./pages/DataMethodology";
+import DataExplorer from "./pages/DataExplorer";
 
 function App() {
   return (
@@ -16,11 +16,13 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Overview />} />
-        <Route path="/progress" element={<Progress />} />
-        <Route path="/zero-2050" element={<Zero2050 />} />
-        <Route path="/net-zero" element={<NetZero />} />
-        <Route path="/inventory" element={<Inventory />} />
-        <Route path="/commitments" element={<Commitments />} />
+
+        <Route path="/emissions" element={<Inventory />} />
+        <Route path="/scope-3" element={<Scope3 />} />
+
+        <Route path="/campus" element={<Commitments />} />
+
+        <Route path="/explorer" element={<DataExplorer />} />
         <Route path="/data" element={<DataMethodology />} />
       </Routes>
 
