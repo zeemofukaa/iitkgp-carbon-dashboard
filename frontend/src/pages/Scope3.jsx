@@ -1,60 +1,65 @@
-import {
-  BarChart,
-  Bar,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { useEffect, useState } from "react";
 
 import PageHeader from "../components/PageHeader";
 import MetricCard from "../components/MetricCard";
+import ApiStatus from "../components/ApiStatus";
+import CategoryCoverage from "../components/CategoryCoverage";
+import MethodMix from "../components/MethodMix";
 
-import {
-  scope3Data,
-  scope3HistoricalData,
-  scope3Categories,
-} from "../data/mockData";
+import { getJSON } from "../api";
+import { scope3Categories } from "../data/mockData";
+
+const fmt = (n) => Math.round(n).toLocaleString();
 
 function Scope3() {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getJSON("/scope3")
+      .then(setData)
+      .catch((e) => setError(e.message));
+  }, []);
+
+  if (!data) return <ApiStatus error={error} />;
+
+  const statusByNumber = Object.fromEntries(
+    data.categories.map((c) => [c.number, c.status])
+  );
+
+  const reported = data.categories.filter(
+    (c) => c.status === "Reported"
+  ).length;
+
   return (
     <>
       <PageHeader
-        eyebrow="INDIRECT EMISSIONS"
+        eyebrow="Indirect emissions"
         title="Scope 3"
-        description="Tracking indirect greenhouse gas emissions associated with activities across the IIT Kharagpur campus value chain."
+        description="Emissions from activities across the campus value chain: travel, commuting, waste and purchases. This is the hardest scope to measure."
       />
 
       <main className="content section">
-
         <div className="prototype-notice">
-          <strong>Prototype data</strong>
+          <strong>Reference dataset</strong>
           <span>
-            The figures shown on this page are placeholders and will be
-            replaced with IIT Kharagpur campus data and approved emission
-            factors.
+            Figures come from the published IIT Delhi 2025 inventory and
+            demonstrate the calculation pipeline until validated IIT
+            Kharagpur data is available. {data.mapping_note}
           </span>
         </div>
 
-        {/* =========================
-            KEY METRICS
-            ========================= */}
-
         <div className="metrics-grid">
-
           <MetricCard
             label="Total Scope 3"
-            value="6,450"
-            detail="tCO₂e · prototype"
+            value={fmt(data.total_tco2e)}
+            detail="tCO₂e, IIT Delhi 2025 inventory"
           />
 
           <MetricCard
             label="Largest category"
-            value="2,820"
-            detail="Purchased goods & services"
+            value={fmt(data.largest.tco2e)}
+            detail={`${data.largest.name}, ${data.largest.share_pct}% of Scope 3`}
           />
 
           <MetricCard
@@ -64,205 +69,75 @@ function Scope3() {
           />
 
           <MetricCard
-            label="Data coverage"
-            value="Pending"
-            detail="Awaiting IIT Kharagpur data"
+            label="Categories reported"
+            value={`${reported} of 15`}
+            detail="Mapped from the IIT Delhi inventory"
           />
-
         </div>
-
-
-        {/* =========================
-            CATEGORY BREAKDOWN
-            ========================= */}
 
         <div className="panel">
+          <h3>Which categories have data</h3>
+          <p className="panel-note">
+            The 15 GHG Protocol categories, with the line items that fill each
+            one and how each was estimated.
+          </p>
 
-          <div className="panel-header">
-            <div>
-              <p className="eyebrow">CATEGORY BREAKDOWN</p>
-              <h3>Scope 3 emissions by source</h3>
-            </div>
-
-            <span className="tag">2025 · Prototype</span>
-          </div>
-
-          <div className="chart">
-
-            <ResponsiveContainer width="100%" height={420}>
-              <BarChart
-                data={scope3Data}
-                margin={{
-                  top: 20,
-                  right: 20,
-                  left: 10,
-                  bottom: 70,
-                }}
-              >
-
-                <CartesianGrid strokeDasharray="3 3" />
-
-                <XAxis
-                  dataKey="name"
-                  angle={-35}
-                  textAnchor="end"
-                  height={100}
-                  interval={0}
-                  fontSize={11}
-                />
-
-                <YAxis
-                  label={{
-                    value: "tCO₂e",
-                    angle: -90,
-                    position: "insideLeft",
-                  }}
-                />
-
-                <Tooltip />
-
-                <Bar
-                  dataKey="value"
-                  fill="#2563eb"
-                />
-
-              </BarChart>
-            </ResponsiveContainer>
-
-          </div>
-
+          <CategoryCoverage categories={data.categories} />
         </div>
-
-
-        {/* =========================
-            HISTORICAL TREND
-            ========================= */}
 
         <div className="panel">
+          <h3>How these numbers were estimated</h3>
+          <p className="panel-note">
+            Scope 3 by calculation method. {data.method_note}
+          </p>
 
-          <div className="panel-header">
-            <div>
-              <p className="eyebrow">HISTORICAL TREND</p>
-              <h3>Scope 3 emissions over time</h3>
-            </div>
-
-            <span className="tag">2021–2025 · Prototype</span>
-          </div>
-
-          <div className="chart">
-
-            <ResponsiveContainer width="100%" height={350}>
-              <LineChart
-                data={scope3HistoricalData}
-                margin={{
-                  top: 20,
-                  right: 20,
-                  left: 10,
-                  bottom: 20,
-                }}
-              >
-
-                <CartesianGrid strokeDasharray="3 3" />
-
-                <XAxis dataKey="year" />
-
-                <YAxis
-                  label={{
-                    value: "tCO₂e",
-                    angle: -90,
-                    position: "insideLeft",
-                  }}
-                />
-
-                <Tooltip />
-
-                <Line
-                  type="monotone"
-                  dataKey="emissions"
-                  stroke="#2563eb"
-                  strokeWidth={3}
-                  dot={{ r: 4 }}
-                />
-
-              </LineChart>
-            </ResponsiveContainer>
-
-          </div>
-
+          <MethodMix methods={data.methods} />
         </div>
-
-
-        {/* =========================
-            SCOPE 3 CATEGORIES
-            ========================= */}
 
         <div className="section-heading">
-
           <div>
-            <p className="eyebrow">DATA STATUS</p>
-
-            <h2>
-              Scope 3 categories
-            </h2>
+            <p className="eyebrow">What each category means</p>
+            <h2>Scope 3 categories</h2>
           </div>
-
         </div>
 
-
         <div className="scope3-status-grid">
-
           {scope3Categories.map((category) => (
             <Scope3Category
               key={category.number}
               number={category.number}
               title={category.title}
-              status={category.status}
+              status={statusByNumber[category.number] ?? category.status}
               description={category.description}
             />
           ))}
-
         </div>
 
-
-        {/* =========================
-            METHODOLOGY
-            ========================= */}
-
         <div className="panel methodology-panel">
-
-          <p className="eyebrow">METHODOLOGY</p>
-
-          <h3>
-            How Scope 3 emissions are calculated
-          </h3>
+          <h3>How Scope 3 emissions are calculated</h3>
 
           <div className="calculation-flow">
-
             <div>
               <strong>Activity data</strong>
 
               <span>
-                Quantity, distance, expenditure, weight, or another
-                activity measure associated with the emission source.
+                Quantity, distance, expenditure, weight, or another activity
+                measure associated with the emission source.
               </span>
             </div>
 
-            <span className="flow-arrow">
-              →
-            </span>
+            <span className="flow-arrow">→</span>
 
             <div>
               <strong>Emission factor</strong>
 
               <span>
-                A factor appropriate to the activity, unit, geography,
-                and accounting method.
+                A factor appropriate to the activity, unit, geography, and
+                accounting method.
               </span>
             </div>
 
-            <span className="flow-arrow">
-              →
-            </span>
+            <span className="flow-arrow">→</span>
 
             <div>
               <strong>CO₂e</strong>
@@ -272,27 +147,14 @@ function Scope3() {
                 carbon-dioxide equivalent.
               </span>
             </div>
-
           </div>
-
         </div>
-
       </main>
     </>
   );
 }
 
-
-/* =========================
-   SCOPE 3 CATEGORY CARD
-   ========================= */
-
-function Scope3Category({
-  number,
-  title,
-  status,
-  description,
-}) {
+function Scope3Category({ number, title, status, description }) {
   const statusClass =
     status === "Pending data"
       ? "pending"
@@ -302,27 +164,15 @@ function Scope3Category({
 
   return (
     <div className="scope3-category">
-
-      <span className="card-number">
-        {number}
-      </span>
+      <span className="card-number">{number}</span>
 
       <div className="scope3-category-header">
+        <h3>{title}</h3>
 
-        <h3>
-          {title}
-        </h3>
-
-        <span className={`status ${statusClass}`}>
-          {status}
-        </span>
-
+        <span className={`status ${statusClass}`}>{status}</span>
       </div>
 
-      <p>
-        {description}
-      </p>
-
+      <p>{description}</p>
     </div>
   );
 }

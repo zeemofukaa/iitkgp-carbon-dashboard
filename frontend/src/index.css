@@ -1,7 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap");
 
 :root {
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-body);
   color: #17201d;
   background: #f7f7f4;
   font-synthesis: none;
@@ -312,7 +311,7 @@ select {
 }
 
 .hero h1 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-display);
   font-size: clamp(48px, 6vw, 82px);
   font-weight: 500;
   line-height: 1.02;
@@ -394,7 +393,7 @@ select {
 }
 
 .page-header h1 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-display);
 
   font-size: clamp(50px, 6vw, 78px);
   font-weight: 500;
@@ -422,7 +421,7 @@ select {
 }
 
 .section-heading h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-display);
 
   font-size: 38px;
   font-weight: 500;
@@ -581,7 +580,7 @@ select {
 }
 
 .target-banner h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-display);
 
   font-size: 38px;
   font-weight: 500;
@@ -734,7 +733,7 @@ select {
 }
 
 .info-card h3 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-display);
 
   font-size: 27px;
   font-weight: 500;
@@ -775,7 +774,7 @@ select {
 }
 
 .netzero-card h2 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-display);
 
   font-size: 40px;
   font-weight: 500;
@@ -975,7 +974,7 @@ footer {
 }
 
 .scope3-category h3 {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-display);
 
   font-size: 24px;
   font-weight: 500;
@@ -1554,4 +1553,17 @@ footer {
   .explorer-summary {
     grid-template-columns: 1fr;
   }
+}
+/* =========================
+   API-DRIVEN STATES
+   ========================= */
+
+.status.calculated {
+  background: #e3ebf8;
+  color: #244a8f;
+}
+
+.status-table .status {
+  align-self: flex-start;
+  white-space: nowrap;
 }

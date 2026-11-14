@@ -1,10 +1,11 @@
 import PageHeader from "../components/PageHeader";
+import QualityPanel from "../components/QualityPanel";
 
 function DataMethodology() {
   return (
     <>
       <PageHeader
-        eyebrow="TRANSPARENCY"
+        eyebrow="Transparency"
         title="Data & Methodology"
         description="Understand where the campus data comes from and how greenhouse gas emissions are calculated."
       />
@@ -12,7 +13,7 @@ function DataMethodology() {
       <main className="content section">
         <div className="two-column">
           <div className="panel">
-            <p className="eyebrow">DATA SOURCES</p>
+            <p className="eyebrow">Data sources</p>
             <h3>Campus data pipeline</h3>
 
             <div className="pipeline">
@@ -33,7 +34,7 @@ function DataMethodology() {
           </div>
 
           <div className="panel">
-            <p className="eyebrow">ACCOUNTING</p>
+            <p className="eyebrow">Accounting</p>
             <h3>GHG Protocol framework</h3>
 
             <p className="body-text">
@@ -48,47 +49,7 @@ function DataMethodology() {
           </div>
         </div>
 
-        <div className="panel">
-          <p className="eyebrow">DATA QUALITY</p>
-          <h3>Current prototype status</h3>
-
-          <div className="status-table">
-            <div>
-              <strong>Electricity</strong>
-              <span className="status available">
-                Available
-              </span>
-            </div>
-
-            <div>
-              <strong>Fuel</strong>
-              <span className="status available">
-                Available
-              </span>
-            </div>
-
-            <div>
-              <strong>Transportation</strong>
-              <span className="status pending">
-                Pending data
-              </span>
-            </div>
-
-            <div>
-              <strong>Waste</strong>
-              <span className="status pending">
-                Pending data
-              </span>
-            </div>
-
-            <div>
-              <strong>Procurement</strong>
-              <span className="status pending">
-                Pending data
-              </span>
-            </div>
-          </div>
-        </div>
+        <QualityPanel />
       </main>
     </>
   );

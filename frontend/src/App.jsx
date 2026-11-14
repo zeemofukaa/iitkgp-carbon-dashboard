@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { CarbonProvider } from "./context/CarbonContext";
 
 import Overview from "./pages/Overview";
 import Inventory from "./pages/Inventory";
@@ -11,6 +13,7 @@ import DataExplorer from "./pages/DataExplorer";
 
 function App() {
   return (
+    <CarbonProvider>
     <BrowserRouter>
       <Navbar />
 
@@ -26,17 +29,9 @@ function App() {
         <Route path="/data" element={<DataMethodology />} />
       </Routes>
 
-      <footer>
-        <div className="content footer-inner">
-          <div>
-            <strong>IIT Kharagpur Sustainability</strong>
-            <p>Campus Carbon Dashboard · Prototype</p>
-          </div>
-
-          <span>Built for campus sustainability research</span>
-        </div>
-      </footer>
+      <Footer />
     </BrowserRouter>
+    </CarbonProvider>
   );
 }
 

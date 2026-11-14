@@ -1,0 +1,388 @@
+{
+  "meta": {
+    "dataset": "IIT Delhi GHG Emission Inventory",
+    "report_year": "2025 (electricity data is calendar year 2024)",
+    "source": "IIT Delhi GHG Emission Inventory Report 2025 (home.iitd.ac.in)",
+    "unit": "tCO2e",
+    "note": "Published figures transcribed from the report. Verify against the PDF before submitting. 'published' = taken as reported; 'calculated' = recomputed here as activity x factor.",
+    "category_mapping_note": "Scope 3 GHG Protocol category numbers are assigned by this project, not by IIT Delhi.",
+    "method_note": "Methods as described in the IIT Delhi report."
+  },
+  "stated_totals": {
+    "scope1": 3467.8954,
+    "scope2": 30136.6285,
+    "scope3": 22438.7762,
+    "total": 56043.3001
+  },
+  "grid_presets": [
+    {
+      "id": "iitd_report",
+      "label": "IIT Delhi report (as used)",
+      "kg_per_kwh": 0.495,
+      "source": "IIT Delhi report sec. 6.1 (source not named)",
+      "verified": true,
+      "short": "IITD 0.495"
+    },
+    {
+      "id": "cea_fy2024_25",
+      "label": "CEA all-India FY2024-25 (v21.0)",
+      "kg_per_kwh": 0.71,
+      "source": "CEA CO2 Baseline Database, via secondary summary",
+      "verified": false,
+      "short": "CEA 0.710"
+    },
+    {
+      "id": "cea_fy2025_26",
+      "label": "CEA all-India FY2025-26 (v22.0)",
+      "kg_per_kwh": 0.675,
+      "source": "CEA CO2 Baseline Database, via secondary summary",
+      "verified": false,
+      "short": "CEA 0.675"
+    }
+  ],
+  "records": [
+    {
+      "id": "s1-labs",
+      "scope": 1,
+      "category": "Stationary fuel",
+      "label": "Academic labs (propane)",
+      "published_tco2e": 4.7831
+    },
+    {
+      "id": "s1-rnipark",
+      "scope": 1,
+      "category": "Stationary fuel",
+      "label": "R&I park",
+      "published_tco2e": 3.7172
+    },
+    {
+      "id": "s1-canteens",
+      "scope": 1,
+      "category": "Stationary fuel",
+      "label": "Markets and canteens (LPG)",
+      "published_tco2e": 477.5194,
+      "emission_factor": 2.89,
+      "factor_unit": "kgCO2e/kg LPG",
+      "factor_source": "IIT Delhi report (source not named)",
+      "activity_value": 165232,
+      "activity_unit": "kg LPG",
+      "activity_status": "implied",
+      "notes": "Fuel quantity worked back from the published tCO2e and the stated factor"
+    },
+    {
+      "id": "s1-mess",
+      "scope": 1,
+      "category": "Stationary fuel",
+      "label": "Hostel mess (PNG)",
+      "published_tco2e": 2024.44,
+      "emission_factor": 1.9,
+      "factor_unit": "kgCO2/SCM PNG",
+      "factor_source": "IIT Delhi report (source not named)",
+      "activity_value": 1065495,
+      "activity_unit": "SCM PNG",
+      "activity_status": "implied",
+      "notes": "Fuel quantity worked back from the published tCO2e and the stated factor"
+    },
+    {
+      "id": "s1-catering",
+      "scope": 1,
+      "category": "Stationary fuel",
+      "label": "Catering for events (LPG)",
+      "published_tco2e": 6.6023
+    },
+    {
+      "id": "s1-bus",
+      "scope": 1,
+      "category": "Owned vehicles",
+      "label": "IIT bus (CNG)",
+      "published_tco2e": 34.8833,
+      "emission_factor": 1.88,
+      "factor_unit": "kgCO2/m3 CNG",
+      "factor_source": "IIT Delhi report (source not named)",
+      "activity_value": 18555,
+      "activity_unit": "m³ CNG",
+      "activity_status": "implied",
+      "notes": "Fuel quantity worked back from the published tCO2e and the stated factor"
+    },
+    {
+      "id": "s1-hospital",
+      "scope": 1,
+      "category": "Owned vehicles",
+      "label": "IIT hospital (ambulances)",
+      "published_tco2e": 5.2091
+    },
+    {
+      "id": "s1-construction",
+      "scope": 1,
+      "category": "Construction",
+      "label": "Construction and maintenance",
+      "published_tco2e": 12.49
+    },
+    {
+      "id": "s1-dg",
+      "scope": 1,
+      "category": "Backup generation",
+      "label": "Backup diesel generators",
+      "published_tco2e": 389.2264
+    },
+    {
+      "id": "s1-waste",
+      "scope": 1,
+      "category": "Waste",
+      "label": "Waste (on-campus)",
+      "published_tco2e": 506.8147
+    },
+    {
+      "id": "s1-fugitive",
+      "scope": 1,
+      "category": "Fugitive",
+      "label": "Fugitive emissions",
+      "published_tco2e": 2.21
+    },
+    {
+      "id": "s2-academic",
+      "scope": 2,
+      "category": "Electricity",
+      "label": "Academic and institute facilities",
+      "published_tco2e": 25021.71,
+      "is_electricity": true,
+      "activity_value": 45298962,
+      "activity_unit": "kWh",
+      "activity_status": "reported",
+      "factor_source": "grid factor"
+    },
+    {
+      "id": "s2-hostel",
+      "scope": 2,
+      "category": "Electricity",
+      "label": "Hostel areas",
+      "published_tco2e": 3175.4324,
+      "is_electricity": true,
+      "activity_value": 6415000,
+      "activity_unit": "kWh",
+      "activity_status": "implied",
+      "factor_source": "grid factor",
+      "notes": "kWh not stated in report; implied as 3,175.43 t / 0.495 kg/kWh"
+    },
+    {
+      "id": "s2-bank",
+      "scope": 2,
+      "category": "Electricity",
+      "label": "Bank",
+      "published_tco2e": 60.6938,
+      "is_electricity": true,
+      "activity_value": 176806,
+      "activity_unit": "kWh",
+      "activity_status": "reported",
+      "factor_source": "grid factor"
+    },
+    {
+      "id": "s2-residential",
+      "scope": 2,
+      "category": "Electricity",
+      "label": "Residential area (faculty/staff quarters)",
+      "published_tco2e": 1878.7923,
+      "is_electricity": true,
+      "activity_value": 5320000,
+      "activity_unit": "kWh",
+      "activity_status": "reported",
+      "factor_source": "grid factor"
+    },
+    {
+      "id": "s3-food",
+      "scope": 3,
+      "category": "Food",
+      "label": "Food preparation, residential area",
+      "published_tco2e": 303.1408,
+      "ghg_category": 1,
+      "method": "survey"
+    },
+    {
+      "id": "s3-commute",
+      "scope": 3,
+      "category": "Commuting",
+      "label": "Employee daily commute",
+      "published_tco2e": 129.9671,
+      "ghg_category": 7,
+      "method": "survey"
+    },
+    {
+      "id": "s3-vans",
+      "scope": 3,
+      "category": "Commuting",
+      "label": "Bank van and school bus",
+      "published_tco2e": 121.3945,
+      "ghg_category": 7,
+      "method": "activity"
+    },
+    {
+      "id": "s3-visits",
+      "scope": 3,
+      "category": "Business travel",
+      "label": "Outside IIT visits (conferences, non-academic)",
+      "published_tco2e": 20102.1943,
+      "notes": "Survey-extrapolated: 10 and 25 departments surveyed, scaled to 33 entities",
+      "ghg_category": 6,
+      "method": "survey"
+    },
+    {
+      "id": "s3-logistics",
+      "scope": 3,
+      "category": "Logistics",
+      "label": "Goods supply and other logistics",
+      "published_tco2e": 84.138,
+      "ghg_category": 4,
+      "method": "unspecified"
+    },
+    {
+      "id": "s3-waste",
+      "scope": 3,
+      "category": "Waste",
+      "label": "Waste treated outside IIT",
+      "published_tco2e": 617.1216,
+      "ghg_category": 5,
+      "method": "activity"
+    },
+    {
+      "id": "s3-sold",
+      "scope": 3,
+      "category": "Purchased goods",
+      "label": "Sold and discarded items",
+      "published_tco2e": 69.0581,
+      "notes": "Spend-based",
+      "ghg_category": 5,
+      "method": "spend"
+    },
+    {
+      "id": "s3-purchased",
+      "scope": 3,
+      "category": "Purchased goods",
+      "label": "Purchased goods and services",
+      "published_tco2e": 1129.1902,
+      "notes": "Spend-based",
+      "ghg_category": 1,
+      "method": "spend"
+    }
+  ],
+  "quality_issues": [
+    {
+      "id": "q1",
+      "severity": "medium",
+      "title": "Scope 3 total does not match its line items",
+      "detail": "Report states 22,438.78 tCO2e; the eight listed items sum to 22,556.20 (difference about 117.4)."
+    },
+    {
+      "id": "q2",
+      "severity": "high",
+      "title": "Electricity kWh do not reconcile with emissions at the stated factor",
+      "detail": "At 0.495 kg/kWh: 45,298,962 kWh gives about 22,423 t (stated 25,021.71); 176,806 kWh gives about 87.5 t (stated 60.69); 5,320,000 kWh gives about 2,633 t (stated 1,878.79)."
+    },
+    {
+      "id": "q3",
+      "severity": "medium",
+      "title": "Grid emission factor has no named source",
+      "detail": "0.495 kg/kWh is used without citation; the CEA all-India factor is higher (about 0.675 to 0.710)."
+    },
+    {
+      "id": "q4",
+      "severity": "low",
+      "title": "Reporting year ambiguity",
+      "detail": "Report is titled 2025 but electricity data is for calendar year 2024."
+    },
+    {
+      "id": "q5",
+      "severity": "medium",
+      "title": "Scope 3 dominated by one survey-extrapolated line",
+      "detail": "Outside IIT visits are about 90% of Scope 3 and rely on a department survey scaled to 33 entities."
+    },
+    {
+      "id": "q6",
+      "severity": "low",
+      "title": "LPG factors use different bases",
+      "detail": "Canteens use 2.89 kgCO2e/kg while catering uses 1.473 kgCO2/L; units are not reconciled."
+    }
+  ],
+  "scope3_categories": [
+    {
+      "number": 1,
+      "name": "Purchased goods & services",
+      "title": "Purchased goods & services"
+    },
+    {
+      "number": 2,
+      "name": "Capital goods",
+      "title": "Capital goods"
+    },
+    {
+      "number": 3,
+      "name": "Fuel & energy-related",
+      "title": "Fuel- and energy-related activities"
+    },
+    {
+      "number": 4,
+      "name": "Upstream transportation",
+      "title": "Upstream transportation & distribution"
+    },
+    {
+      "number": 5,
+      "name": "Waste generated",
+      "title": "Waste generated in operations"
+    },
+    {
+      "number": 6,
+      "name": "Business travel",
+      "title": "Business travel"
+    },
+    {
+      "number": 7,
+      "name": "Employee commuting",
+      "title": "Employee commuting"
+    },
+    {
+      "number": 8,
+      "name": "Upstream leased assets",
+      "title": "Upstream leased assets"
+    },
+    {
+      "number": 9,
+      "name": "Downstream transportation",
+      "title": "Downstream transportation & distribution"
+    },
+    {
+      "number": 10,
+      "name": "Processing of sold products",
+      "title": "Processing of sold products"
+    },
+    {
+      "number": 11,
+      "name": "Use of sold products",
+      "title": "Use of sold products"
+    },
+    {
+      "number": 12,
+      "name": "End-of-life of sold products",
+      "title": "End-of-life treatment of sold products"
+    },
+    {
+      "number": 13,
+      "name": "Downstream leased assets",
+      "title": "Downstream leased assets"
+    },
+    {
+      "number": 14,
+      "name": "Franchises",
+      "title": "Franchises"
+    },
+    {
+      "number": 15,
+      "name": "Investments",
+      "title": "Investments"
+    }
+  ],
+  "method_labels": {
+    "survey": "Survey scaled to the campus",
+    "activity": "Activity data × factor",
+    "spend": "Spend × factor",
+    "unspecified": "Method not described"
+  }
+}

@@ -1,9 +1,14 @@
 import { useMemo, useState } from "react";
 
 import PageHeader from "../components/PageHeader";
-import { emissionsData } from "../data/mockData";
+import GridFactorSelect from "../components/GridFactorSelect";
+import ApiStatus from "../components/ApiStatus";
+import { useCarbon } from "../context/CarbonContext";
+import { SCOPE_COLORS } from "../theme";
 
 function DataExplorer() {
+  const { explorer: emissionsData, charts, error } = useCarbon();
+
   const [year, setYear] = useState("All");
   const [scope, setScope] = useState("All");
   const [source, setSource] = useState("All");
@@ -33,7 +38,12 @@ function DataExplorer() {
         matchesSource
       );
     });
-  }, [year, scope, source]);
+  }, [emissionsData, year, scope, source]);
+
+  if (!charts) return <ApiStatus error={error} />;
+
+  const maxEmissions = Math.max(...emissionsData.map((d) => d.emissions), 1);
+  const grandTotal = emissionsData.reduce((s, d) => s + d.emissions, 0) || 1;
 
   const totalEmissions = filteredData.reduce(
     (total, item) => total + item.emissions,
@@ -43,7 +53,7 @@ function DataExplorer() {
   return (
     <>
       <PageHeader
-        eyebrow="EXPLORE THE DATA"
+        eyebrow="Explore the data"
         title="Data Explorer"
         description="Explore campus greenhouse gas emissions by year, scope, and emission source."
       />
@@ -51,11 +61,12 @@ function DataExplorer() {
       <main className="content section">
 
         <div className="prototype-notice">
-          <strong>Prototype dataset</strong>
+          <strong>Reference dataset</strong>
 
           <span>
-            These records are placeholders. The same interface will
-            eventually operate on validated IIT Kharagpur campus data.
+            Records come from the published IIT Delhi 2025 inventory. The
+            same interface will operate on validated IIT Kharagpur campus
+            data when it is available.
           </span>
         </div>
 
@@ -114,6 +125,12 @@ function DataExplorer() {
             </select>
           </div>
 
+          <div className="filter-group">
+            <label>Grid factor</label>
+
+            <GridFactorSelect />
+          </div>
+
           <button
             className="reset-button"
             onClick={() => {
@@ -143,7 +160,7 @@ function DataExplorer() {
         <div className="panel explorer-panel">
           <div className="panel-header">
             <div>
-              <p className="eyebrow">EMISSIONS RECORDS</p>
+              <p className="eyebrow">Emissions records</p>
               <h3>Campus emissions data</h3>
             </div>
 
@@ -161,6 +178,7 @@ function DataExplorer() {
                   <th>Scope</th>
                   <th>Category</th>
                   <th>Emissions</th>
+                  <th>Share of total</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -176,6 +194,13 @@ function DataExplorer() {
 
                     <td>
                       <span className="scope-badge">
+                        <i
+                          className="scope-dot"
+                          style={{
+                            background:
+                              SCOPE_COLORS[Number(item.scope.slice(-1))],
+                          }}
+                        />
                         {item.scope}
                       </span>
                     </td>
@@ -183,7 +208,25 @@ function DataExplorer() {
                     <td>{item.category}</td>
 
                     <td>
-                      {item.emissions.toLocaleString()} tCO₂e
+                      <div className="size-cell">
+                        <span className="size-bar">
+                          <span
+                            style={{
+                              width: `${(item.emissions / maxEmissions) * 100}%`,
+                              background:
+                                SCOPE_COLORS[Number(item.scope.slice(-1))],
+                            }}
+                          />
+                        </span>
+
+                        <span className="size-val">
+                          {item.emissions.toLocaleString()} tCO₂e
+                        </span>
+                      </div>
+                    </td>
+
+                    <td>
+                      {((item.emissions / grandTotal) * 100).toFixed(1)}%
                     </td>
 
                     <td>
@@ -191,7 +234,7 @@ function DataExplorer() {
                         className={`status ${
                           item.status === "Available"
                             ? "available"
-                            : "estimated"
+                            : "calculated"
                         }`}
                       >
                         {item.status}

@@ -5,7 +5,7 @@ function NetZero() {
   return (
     <>
       <PageHeader
-        eyebrow="NEAR-TERM MILESTONE"
+        eyebrow="Near-term milestone"
         title="Net Zero"
         description="A dedicated view for monitoring progress toward an interim campus net-zero milestone."
       />
@@ -13,7 +13,7 @@ function NetZero() {
       <main className="content section">
         <div className="netzero-card">
           <div>
-            <p className="eyebrow">CURRENT STATUS</p>
+            <p className="eyebrow">Current status</p>
 
             <h2>Net-zero pathway</h2>
 

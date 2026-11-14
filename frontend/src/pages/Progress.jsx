@@ -18,7 +18,7 @@ function Progress() {
   return (
     <>
       <PageHeader
-        eyebrow="METRICS & GOALS"
+        eyebrow="Metrics & goals"
         title="Progress"
         description="Track campus greenhouse gas emissions and progress toward long-term sustainability goals."
       />
@@ -26,7 +26,7 @@ function Progress() {
       <main className="content section">
         <div className="target-banner">
           <div>
-            <p className="eyebrow">LONG-TERM TARGET</p>
+            <p className="eyebrow">Long-term target</p>
 
             <h2>Zero direct campus emissions by 2050</h2>
 
@@ -45,7 +45,7 @@ function Progress() {
 
         <div className="two-column">
           <div className="panel">
-            <p className="eyebrow">EMISSIONS</p>
+            <p className="eyebrow">Emissions</p>
             <h3>Scope breakdown</h3>
 
             <div className="chart">
@@ -72,7 +72,7 @@ function Progress() {
           </div>
 
           <div className="panel">
-            <p className="eyebrow">SCOPE 3</p>
+            <p className="eyebrow">Scope 3</p>
             <h3>Indirect emissions</h3>
 
             <div className="chart">
@@ -105,7 +105,7 @@ function Progress() {
         <div className="panel">
           <div className="panel-header">
             <div>
-              <p className="eyebrow">HISTORICAL TREND</p>
+              <p className="eyebrow">Historical trend</p>
               <h3>Campus emissions over time</h3>
             </div>
 
@@ -136,7 +136,7 @@ function Progress() {
         </div>
 
         <div className="panel">
-          <p className="eyebrow">ENVIRONMENTAL METRICS</p>
+          <p className="eyebrow">Environmental metrics</p>
           <h3>Tracking progress across campus</h3>
 
           <div className="progress-grid">

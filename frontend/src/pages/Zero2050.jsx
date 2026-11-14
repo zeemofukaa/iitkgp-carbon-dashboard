@@ -5,7 +5,7 @@ function Zero2050() {
   return (
     <>
       <PageHeader
-        eyebrow="DECARBONIZATION"
+        eyebrow="Decarbonization"
         title="Zero by 2050"
         description="A long-term pathway toward eliminating direct greenhouse gas emissions from campus operations."
       />
@@ -37,7 +37,7 @@ function Zero2050() {
 
         <div className="section-heading">
           <div>
-            <p className="eyebrow">DECARBONIZATION PATHWAYS</p>
+            <p className="eyebrow">Decarbonization pathways</p>
             <h2>Areas of action</h2>
           </div>
         </div>
